@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
-  appName: 'TaAp03',
+  appName: 'DI02_TA03_Plantilla_2627',
   webDir: 'www'
 };
 
