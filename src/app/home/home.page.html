@@ -3,7 +3,15 @@
     <ion-title>Guía de Restaurantes Euskadi</ion-title>
     <ion-buttons slot="end">
       <!-- TODO - Crear un botón en el menú para cuando hagamos click llame al método abrirModalAnadir-->
-      
+      <ion-button
+        (click)="abrirModalAnadir()"
+        [disabled]="!hayDatos() || cargando() || importando()"
+        title="Añade un restaurante">
+        @if (importando()) {
+          <ion-spinner name="crescent" style="width:18px;height:18px;margin-right:6px;"></ion-spinner>
+        }
+        AÑADIR
+      </ion-button>
       <ion-button
         (click)="confirmarImportacion()"
         [disabled]="cargando() || importando()"

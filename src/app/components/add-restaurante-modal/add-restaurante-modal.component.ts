@@ -23,12 +23,19 @@ export class AddRestauranteModalComponent {
   //     - Añadir los campos necesarios y controlar las que son obligatorias
   //     - Al FormGroup le estoy llamando "form", podéis poner el nombre que preferáis
   form = this.fb.nonNullable.group({
-
+    documentName: ['', Validators.required],
+    territory: ['', Validators.required],
+    locality: [''],
+    address: [''],
+    phone: ['', [Validators.pattern(/^[0-9]{9}$/)]],
+    web: [''],
+    michelinStar: ['', [Validators.pattern(/^[0-3]$/)]],
+    repsolSun: ['', [Validators.pattern(/^[0-3]$/)]],
   });
 
   cancelar() {
     //TODO - Haremos un dismiss (data, role), siendo data = null y role = 'cancel'
-
+    this.modalCtrl.dismiss (null, 'cancel');
   }
 
   //TODO - Importante ponerlo siempre, cuando el formulario sea invalid ponemos todos los campos como touched para mostrar mensajes de error
@@ -39,15 +46,72 @@ export class AddRestauranteModalComponent {
     }
 
     this.guardando.set(true);
-    try {
+   
       //TODO - Añadir const restaurante: Restaurante... del enunciado. 
       // Si el objeto restaurante os da error al copiar, es porque en el HTML faltan añadir los campos necesarios.
       // Para poder crear el objeto restaurante de tipo Restaurante, necesitamos los campos del HTML para poder completar el objeto en su totalidad.
+      
+    try {
+      const restaurante: Restaurante = {
+        // Els 8 camps del formulari
+        ...this.form.getRawValue(),
+
+        // La resta, buits
+        documentDescription: '',
+        templateType: '',
+        localityQ: '',
+        qualityQ: '',
+        qualityIconDescription: '',
+        accesibility: '',
+        accesibilityIconDescription: '',
+        marks: '',
+        physical: '',
+        visual: '',
+        auditive: '',
+        intellectual: '',
+        organic: '',
+        qualityAssurance: '',
+        tourismEmail: '',
+        importance: '',
+        room: '',
+        productClub: '',
+        visit: '',
+        capacity: '',
+        store: '',
+        gastronomical: '',
+        surfing: '',
+        postalCode: '',
+        restorationType: '',
+        recomended: '',
+        recomendedURLIcon: '',
+        recomendedIconDescription: '',
+        restaurant: '',
+        bodega: '',
+        latitudelongitude: '',
+        latwgs84: '',
+        lonwgs84: '',
+        placename: '',
+        municipality: '',
+        municipalitycode: '',
+        postalcode: '',
+        territorycode: '',
+        country: '',
+        countrycode: '',
+        email: '',
+        webpage: '',
+        friendlyUrl: '',
+        physicalUrl: '',
+        dataXML: '',
+        metadataXML: '',
+        zipFile: '',
+      };
 
       //Llamamos al servicio para añadir el restaurante en Firebase
-      
-      //Hamos el dismiss del ModalController y en este caso dato: restaurante y role: 'confirm'
+      await this.restauranteService.add(restaurante);
 
+      //Hamos el dismiss del ModalController y en este caso dato: restaurante y role: 'confirm'
+      await this.modalCtrl.dismiss(restaurante, 'confirm');
+    
     } catch {
       //Si falla podemos mostrar un Toast para notificar al usuario
       const toast = await this.toastCtrl.create({
