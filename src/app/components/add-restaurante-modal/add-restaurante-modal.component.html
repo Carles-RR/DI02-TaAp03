@@ -2,31 +2,24 @@
   <ion-toolbar>
     <ion-title>Añadir Restaurante</ion-title>
     <ion-buttons slot="end">
-      <!-- TODO - Añadiremos un botón para cancelar y cerrar el Modal-->
-       <ion-button  (click)="cancelar()">Cancelar</ion-button>
+      <ion-button (click)="cancelar()">Cancelar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <!-- Añadir el [formGroup] y (ngSubmit) para guardar-->
-  <form [formGroup]="form" (ngSubmit)="guardar()"></form>
-  <form>
+  <form [formGroup]="form" (ngSubmit)="guardar()">
     <ion-list lines="full">
-      <!-- TODO - Añadir los campos necesarios a cada ion-input-->
+
       <!-- Nombre -->
       <ion-item>
         <ion-input
           label="Nombre"
           labelPlacement="floating"
           formControlName="documentName"
-          type="text"
-          >
+          type="text">
         </ion-input>
       </ion-item>
-      <!-- TODO - documentName debe ser obligatorio y habrá que comprobar si es invalid && touched
-                - Mostramos un texto "El nombre es obligatorio" mediante <ion-text><small>  
-        -->
       @if (form.get('documentName')?.invalid && form.get('documentName')?.touched) {
         <ion-text color="danger" class="ion-padding-start">
           <small>El nombre es obligatorio</small>
@@ -39,28 +32,24 @@
           label="Territorio"
           labelPlacement="floating"
           formControlName="territory"
-          type="text"
-          >
+          type="text">
         </ion-input>
       </ion-item>
-      <!-- TODO - territory debe ser obligatorio y habrá que comprobar si es invalid && touched
-                - Mostramos un texto "El territorio es obligatorio" mediante <ion-text><small>  
-        -->
       @if (form.get('territory')?.invalid && form.get('territory')?.touched) {
         <ion-text color="danger" class="ion-padding-start">
           <small>El territorio es obligatorio</small>
         </ion-text>
       }
+
       <!-- Localidad -->
       <ion-item>
         <ion-input
           label="Localidad"
           labelPlacement="floating"
           formControlName="locality"
-          type="text"
-          >
+          type="text">
         </ion-input>
-      </ion-item>  
+      </ion-item>
 
       <!-- Dirección -->
       <ion-item>
@@ -68,8 +57,7 @@
           label="Dirección"
           labelPlacement="floating"
           formControlName="address"
-          type="text"
-          >
+          type="text">
         </ion-input>
       </ion-item>
 
@@ -77,6 +65,7 @@
       <ion-item>
         <ion-input
           label="Teléfono"
+          labelPlacement="floating"
           type="tel"
           formControlName="phone">
         </ion-input>
@@ -86,6 +75,7 @@
       <ion-item>
         <ion-input
           label="Web"
+          labelPlacement="floating"
           type="url"
           formControlName="web">
         </ion-input>
@@ -95,9 +85,8 @@
       <ion-item>
         <ion-input
           label="Estrellas Michelin"
+          labelPlacement="floating"
           type="text"
-          min="0"
-          max="3"
           formControlName="michelinStar">
         </ion-input>
       </ion-item>
@@ -106,16 +95,14 @@
       <ion-item>
         <ion-input
           label="Soles Repsol"
+          labelPlacement="floating"
           type="text"
-          min="0"
-          max="3"
           formControlName="repsolSun">
         </ion-input>
       </ion-item>
 
     </ion-list>
 
-    <!-- TOOD - Se valorará añadir y controlar un spinner y hacer uso de Signals guardando para mostrar un mensaje u otro-->
     <div class="ion-padding-top">
       <ion-button type="submit" expand="block" [disabled]="guardando()">
         @if (guardando()) {
@@ -124,7 +111,3 @@
           Guardar
         }
       </ion-button>
-    </div>
-
-  </form>
-</ion-content>

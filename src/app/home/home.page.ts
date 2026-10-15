@@ -1,15 +1,23 @@
 import { Component, signal, computed, inject } from '@angular/core';
-import { IonicModule, AlertController, ModalController, ToastController, LoadingController } from '@ionic/angular';
+import {
+  AlertController, ModalController, ToastController, LoadingController,
+  IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonSpinner,
+  IonContent, IonItem, IonLabel, IonGrid, IonRow, IonCol,
+  IonInput, IonSelect, IonSelectOption
+} from '@ionic/angular/standalone';
 import { Restaurante } from '../interface/restaurante';
 import { RestauranteService } from '../services/restaurante.service';
 import restaurantesJSON from '../../assets/datos/restaurantes.json';
-//TODO - Añadir el import para el componente AddRestauranteModalComponent
 import { AddRestauranteModalComponent } from '../components/add-restaurante-modal/add-restaurante-modal.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [IonicModule],
+  imports: [
+    IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonSpinner,
+    IonContent, IonItem, IonLabel, IonGrid, IonRow, IonCol,
+    IonInput, IonSelect, IonSelectOption
+  ],
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss']
 })
@@ -100,16 +108,21 @@ export class HomePage {
     //TODO - Presentar el modal y recoger el role cuando hagamos el onWillDiss (Devuelve un Promise que se resuelve justo antes de que el modal termine su animación de cierra)
     // En este caso el role será "confirm" o "cancel", si es confirm, llamaremos a cargarDatos de nuevo para mostrar toda la lista
     // junto al restaurante nuevo introducido
-    const modal = await this.modalCtrl.create({
-    component: AddRestauranteModalComponent,
-  });
-  await modal.present();
+    try {
+      const modal = await this.modalCtrl.create({
+        component: AddRestauranteModalComponent,
+      });
+      console.log('2. modal creat');
+      await modal.present();
+      console.log('3. modal presentat');
 
-  const { role } = await modal.onWillDismiss();
-
-  if (role === 'confirm') {
-    await this.cargarDatos(); // refresca la llista
-  }
+      const { role } = await modal.onWillDismiss();
+      if (role === 'confirm') {
+        await this.cargarDatos();
+      }
+    } catch (e) {
+    console.error('ERROR obrint el modal:', e);
+    }
   }
 
   // Muestra un toast con el mensaje y color indicados

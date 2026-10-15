@@ -1,13 +1,21 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { IonicModule, ModalController, ToastController } from '@ionic/angular';
+import {
+  ModalController, ToastController,
+  IonHeader, IonToolbar, IonTitle, IonButtons, IonButton,
+  IonContent, IonList, IonItem, IonInput, IonText, IonSpinner
+} from '@ionic/angular/standalone';
 import { Restaurante } from '../../interface/restaurante';
 import { RestauranteService } from '../../services/restaurante.service';
 
 @Component({
   selector: 'app-add-restaurante-modal',
   standalone: true,
-  imports: [IonicModule, ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    IonHeader, IonToolbar, IonTitle, IonButtons, IonButton,
+    IonContent, IonList, IonItem, IonInput, IonText, IonSpinner
+  ],
   templateUrl: './add-restaurante-modal.component.html',
 })
 export class AddRestauranteModalComponent {
